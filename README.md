@@ -1,5 +1,7 @@
 # Your Only Move Is Hustle Discord Bot
 
+![image](https://user-images.githubusercontent.com/25104390/209800973-7c756f36-216b-4ac3-8fbd-8bb9372c42d3.png)
+
 yomibot is a Discord bot designed to provide utility and 
 administrative functions for the official Your Only Move is 
 HUSTLE server.
