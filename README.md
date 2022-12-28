@@ -29,7 +29,11 @@ Modifying a table after it has been created will result in
 all previous entries having empty values for the new columns. 
 This means that using constraints such as `NOT NULL` are not 
 possible, and you will need to account for the possibility of 
-empty values being returned when using any "new" columns.
+empty values being returned when using any "new" columns. 
+Additionally, the code should check for the presence of these 
+changes and make them if they are not present. 
+This is important to ensure that other instances of the bot 
+have the required columns or settings in the table.
 
 ## License
 
