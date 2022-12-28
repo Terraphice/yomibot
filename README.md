@@ -25,9 +25,11 @@ please feel free to fork the repository and submit pull requests.
 We welcome any bug fixes, feature suggestions, or improvements to the codebase.
 
 Please be careful when creating database tables. 
-If you push code that creates a table, 
-do not modify the table in a later commit.
-
+Modifying a table after it has been created will result in 
+all previous entries having empty values for the new columns. 
+This means that using constraints such as `NOT NULL` are not 
+possible, and you will need to account for the possibility of 
+empty values being returned when using any "new" columns.
 
 ## License
 
