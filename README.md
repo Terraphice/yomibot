@@ -24,6 +24,11 @@ If you would like to contribute to the development of yomibot,
 please feel free to fork the repository and submit pull requests. 
 We welcome any bug fixes, feature suggestions, or improvements to the codebase.
 
+Please be careful when creating database tables. 
+If you push code that creates a table, 
+do not modify the table in a later commit.
+
+
 ## License
 
 yomibot is not currently licensed. A license will be added in the future.
