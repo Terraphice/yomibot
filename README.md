@@ -16,7 +16,7 @@ Some examples of features that yomibot may include are:
 ## Usage
 
 To use yomibot, you can use slash commands by typing `/command`. 
-For example, you can use commands like `/kick @user`.
+For example, you can use commands like `/kick @user`.
 
 ## Contributing
 
