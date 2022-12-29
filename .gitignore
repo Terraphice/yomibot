@@ -1,3 +1,6 @@
+### yomibot ###
+config.yml
+
 ### Java ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
