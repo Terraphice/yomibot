@@ -1,5 +1,7 @@
 package com.yomi;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -8,6 +10,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class ConfigHandler {
+    private static final Logger logger = LoggerFactory.getLogger(ConfigHandler.class);
     public static Map<String, Object> loadConfig() {
         Map<String, Object> config;
 
@@ -44,10 +47,10 @@ public class ConfigHandler {
         for (Map.Entry<String, Object> configIteration : config.entrySet()) {
             //Check for keys in config not present in example config, this isn't really a problem so just warn.
             if (exampleConfig.get(configIteration.getKey()) == null) {
-                System.out.println("[WARNING] Key found in config not present in example config: " + configIteration.getKey());
+                logger.warn("Key found in config not present in example config: " + configIteration.getKey());
             }
             if (configIteration.getValue().equals(exampleConfig.get(configIteration.getKey()))) {
-                System.out.println("[ERROR] Config value unchanged, please configure key \"" + configIteration.getKey() + "\"");
+                logger.error("Config value unchanged, please configure key \"" + configIteration.getKey() + "\"");
                 System.exit(1);
             }
         }
@@ -55,7 +58,7 @@ public class ConfigHandler {
         //check for missing keys in config
         for (Map.Entry<String, Object> exampleConfigIteration : exampleConfig.entrySet()) {
             if (config.get(exampleConfigIteration.getKey()) == null) {
-                System.out.println("[ERROR] Key found in example config not present in config: " + exampleConfigIteration.getKey() +
+                logger.error("Key found in example config not present in config: " + exampleConfigIteration.getKey() +
                         "\nPlease copy all missing values and set them.");
                 System.exit(1);
             }
