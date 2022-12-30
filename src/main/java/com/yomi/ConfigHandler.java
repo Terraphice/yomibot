@@ -61,7 +61,9 @@ public class ConfigHandler {
             if (exampleConfig.get(configIteration.getKey()) == null && LOGGER.isWarnEnabled()) {
                 LOGGER.warn("Key found in config not present in example config: " + configIteration.getKey());
             }
-            if (configIteration.getValue().equals(exampleConfig.get(configIteration.getKey())) && LOGGER.isErrorEnabled()) {
+            final Object configValue = configIteration.getValue();
+            final Object exampleValue = exampleConfig.get(configIteration.getKey());
+            if (configValue == exampleValue && LOGGER.isErrorEnabled()) {
                 LOGGER.error("Config value unchanged, please configure key \"" + configIteration.getKey() + "\"");
                 System.exit(1);
             }
