@@ -56,9 +56,9 @@ public class ConfigHandler {
         }
 
         //check for missing keys in config
-        for (final Map.Entry<String, Object> exampleConfigIteration : exampleConfig.entrySet()) {
-            if ((config.get(exampleConfigIteration.getKey()) == null) && (LOGGER.isErrorEnabled())) {
-                LOGGER.error("Key found in example config not present in config: " + exampleConfigIteration.getKey() +
+        for (final Map.Entry<String, Object> exampleConfigI : exampleConfig.entrySet()) {
+            if ((config.get(exampleConfigI.getKey()) == null) && (LOGGER.isErrorEnabled())) {
+                LOGGER.error("Key found in example config not present in config: " + exampleConfigI.getKey() +
                         "\nPlease copy all missing values and set them.");
                 System.exit(1);
             }
