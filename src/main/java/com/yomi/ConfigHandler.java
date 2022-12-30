@@ -46,10 +46,10 @@ public class ConfigHandler {
         //check for un-configured values in config, or useless values in config
         for (Map.Entry<String, Object> configIteration : config.entrySet()) {
             //Check for keys in config not present in example config, this isn't really a problem so just warn.
-            if (exampleConfig.get(configIteration.getKey()) == null) {
+            if ((exampleConfig.get(configIteration.getKey()) == null) && (logger.isWarnEnabled())) {
                 logger.warn("Key found in config not present in example config: " + configIteration.getKey());
             }
-            if (configIteration.getValue().equals(exampleConfig.get(configIteration.getKey()))) {
+            if ((configIteration.getValue().equals(exampleConfig.get(configIteration.getKey()))) && (logger.isErrorEnabled())) {
                 logger.error("Config value unchanged, please configure key \"" + configIteration.getKey() + "\"");
                 System.exit(1);
             }
@@ -57,7 +57,7 @@ public class ConfigHandler {
 
         //check for missing keys in config
         for (Map.Entry<String, Object> exampleConfigIteration : exampleConfig.entrySet()) {
-            if (config.get(exampleConfigIteration.getKey()) == null) {
+            if ((config.get(exampleConfigIteration.getKey()) == null) && (logger.isErrorEnabled())) {
                 logger.error("Key found in example config not present in config: " + exampleConfigIteration.getKey() +
                         "\nPlease copy all missing values and set them.");
                 System.exit(1);
