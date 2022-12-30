@@ -35,14 +35,17 @@ public class ConfigHandler {
     }
 
     public static void updateCheck(final Map<String, Object> config) {
-        Map<String, Object> exampleConfig = null;
+        final Map<String, Object> exampleConfig = loadExampleConfig();
+        checkForUnconfiguredValues(config, exampleConfig);
+        checkForMissingKeys(config, exampleConfig);
+    }
 
+    private static Map<String, Object> loadExampleConfig() {
+        Yaml yaml = null;
+        InputStream inputStream = null;
         try {
-            //Loading config example file
-            final InputStream inputStream = new FileInputStream("config-example.yml");
-            final Yaml yaml = new Yaml();
-            //set the config object
-            exampleConfig = yaml.load(inputStream);
+            inputStream = new FileInputStream("config-example.yml");
+            yaml = new Yaml();
         } catch (FileNotFoundException e) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("config-example.yml is not found! " +
@@ -51,10 +54,10 @@ public class ConfigHandler {
             }
             System.exit(1);
         }
-
-        //check for un-configured values in config, or useless values in config
+        return yaml.load(inputStream);
+    }
+    private static void checkForUnconfiguredValues(final Map<String, Object> config, final Map<String, Object> exampleConfig) {
         for (final Map.Entry<String, Object> configIteration : config.entrySet()) {
-            //Check for keys in config not present in example config, this isn't really a problem so just warn.
             if (exampleConfig.get(configIteration.getKey()) == null && LOGGER.isWarnEnabled()) {
                 LOGGER.warn("Key found in config not present in example config: " + configIteration.getKey());
             }
@@ -63,8 +66,8 @@ public class ConfigHandler {
                 System.exit(1);
             }
         }
-
-        //check for missing keys in config
+    }
+    private static void checkForMissingKeys(final Map<String, Object> config, final Map<String, Object> exampleConfig) {
         for (final Map.Entry<String, Object> exampleConfigI : exampleConfig.entrySet()) {
             if (config.get(exampleConfigI.getKey()) == null && LOGGER.isErrorEnabled()) {
                 LOGGER.error("Key found in example config not present in config: " + exampleConfigI.getKey() +
