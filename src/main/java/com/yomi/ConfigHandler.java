@@ -16,8 +16,8 @@ public class ConfigHandler {
 
         try {
             //Loading config file
-            InputStream inputStream = new FileInputStream("config.yml");
-            Yaml yaml = new Yaml();
+            final InputStream inputStream = new FileInputStream("config.yml");
+            final Yaml yaml = new Yaml();
             //set the config object
             config = yaml.load(inputStream);
         } catch (FileNotFoundException e) {
@@ -35,8 +35,8 @@ public class ConfigHandler {
 
         try {
             //Loading config example file
-            InputStream inputStream = new FileInputStream("config-example.yml");
-            Yaml yaml = new Yaml();
+            final InputStream inputStream = new FileInputStream("config-example.yml");
+            final Yaml yaml = new Yaml();
             //set the config object
             exampleConfig = yaml.load(inputStream);
         } catch (FileNotFoundException e) {
@@ -44,7 +44,7 @@ public class ConfigHandler {
         }
 
         //check for un-configured values in config, or useless values in config
-        for (Map.Entry<String, Object> configIteration : config.entrySet()) {
+        for (final Map.Entry<String, Object> configIteration : config.entrySet()) {
             //Check for keys in config not present in example config, this isn't really a problem so just warn.
             if ((exampleConfig.get(configIteration.getKey()) == null) && (LOGGER.isWarnEnabled())) {
                 LOGGER.warn("Key found in config not present in example config: " + configIteration.getKey());
@@ -56,7 +56,7 @@ public class ConfigHandler {
         }
 
         //check for missing keys in config
-        for (Map.Entry<String, Object> exampleConfigIteration : exampleConfig.entrySet()) {
+        for (final Map.Entry<String, Object> exampleConfigIteration : exampleConfig.entrySet()) {
             if ((config.get(exampleConfigIteration.getKey()) == null) && (LOGGER.isErrorEnabled())) {
                 LOGGER.error("Key found in example config not present in config: " + exampleConfigIteration.getKey() +
                         "\nPlease copy all missing values and set them.");
