@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import java.util.Map;
 
 public class DiscordBotHandler {
-    public static void init(Map<String, Object> config) {
+    public static void init(final Map<String, Object> config) {
         final JDABuilder jdabuilder = JDABuilder.createDefault(
                 config.get("token").toString()
                 )
