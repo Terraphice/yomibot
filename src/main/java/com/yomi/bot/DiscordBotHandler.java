@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class DiscordBotHandler {
     public static void init(Map<String, Object> config) {
-        JDABuilder jdabuilder = JDABuilder.createDefault(
+        final JDABuilder jdabuilder = JDABuilder.createDefault(
                 config.get("token").toString()
                 )
                 .addEventListeners(new Events());
-        JDA jda = jdabuilder.build();
+        final JDA jda = jdabuilder.build();
         jda.addEventListener(new Events());
     }
 }
