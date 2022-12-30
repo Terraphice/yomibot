@@ -30,7 +30,7 @@ public class ConfigHandler {
         return config;
     }
 
-    public static void updateCheck(Map<String, Object> config) {
+    public static void updateCheck(final Map<String, Object> config) {
         Map<String, Object> exampleConfig;
 
         try {
