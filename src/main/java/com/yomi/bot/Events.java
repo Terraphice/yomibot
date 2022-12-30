@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class Events extends ListenerAdapter {
     public static final Logger LOGGER = LoggerFactory.getLogger(Events.class);
+    public Events() {super();}
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(event.getMessage().getContentDisplay());
