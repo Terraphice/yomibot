@@ -12,7 +12,7 @@ public class Events extends ListenerAdapter {
     public static final Logger LOGGER = LoggerFactory.getLogger(Events.class);
     public void onMessageReceived(final @NotNull MessageReceivedEvent event) {
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info(event.getMessage().getContentDisplay());
+            LOGGER.info("Message received: " + event.getMessage().getContentDisplay());
         }
     }
 }
