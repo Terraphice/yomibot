@@ -13,6 +13,6 @@ public class DiscordBotHandler {
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 ;
         final JDA jda = jdabuilder.build();
-        jda.addEventListener(new Events());
+        jda.addEventListener(new EventRegistrar());
     }
 }
