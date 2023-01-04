@@ -8,9 +8,7 @@ import java.util.Map;
 public class DiscordBotHandler {
     public static void init(final Map<String, Object> config) {
         final String token = (String) config.get("token");
-        final JDABuilder jdabuilder = JDABuilder.createDefault(
-                token
-                )
+        final JDABuilder jdabuilder = JDABuilder.createDefault(token)
                 .addEventListeners(new Events());
         final JDA jda = jdabuilder.build();
         jda.addEventListener(new Events());
