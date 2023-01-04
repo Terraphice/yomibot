@@ -11,7 +11,7 @@ public class DiscordBotHandler {
         final String token = (String) config.get("token");
         final JDABuilder jdabuilder = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
-                .addEventListeners(new Events());
+                ;
         final JDA jda = jdabuilder.build();
         jda.addEventListener(new Events());
     }
