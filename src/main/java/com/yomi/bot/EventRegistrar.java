@@ -15,7 +15,6 @@ public class EventRegistrar extends ListenerAdapter {
     // but PMD can deal with it; It's unneeded
     final List<Class<?>> commandList = loadCommands();
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        System.out.println(event.getInteraction().getName());
 
         for (Class<?> clazz : commandList) {
                 // Get the constructor for the class
