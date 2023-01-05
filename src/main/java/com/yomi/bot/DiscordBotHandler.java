@@ -15,7 +15,9 @@ import java.net.URL;
 import java.util.*;
 
 public class DiscordBotHandler {
-    public static void init(final Map<String, Object> config) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void init(final Map<String, Object> config) throws
+            NoSuchMethodException, InvocationTargetException,
+            InstantiationException, IllegalAccessException {
         final String token = (String) config.get("token");
         final JDABuilder jdabuilder = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT);
@@ -50,7 +52,8 @@ public class DiscordBotHandler {
                         throw new RuntimeException(e);
                     }
                     // Check if the class implements the SlashCommand interface
-                    if (Arrays.asList(clazz.getInterfaces()).contains(SlashCommandRegistrar.class)) {
+                    if (Arrays.asList(clazz.getInterfaces())
+                            .contains(SlashCommandRegistrar.class)) {
                         commandClasses.add(clazz);
                     }
                 }
@@ -69,10 +72,14 @@ public class DiscordBotHandler {
             // Get the constructor for the class
             Constructor<?> constructor = clazz.getConstructor();
             // Create a new instance of the class
-            SlashCommandRegistrar command = (SlashCommandRegistrar) constructor.newInstance();
+            SlashCommandRegistrar command =
+                    (SlashCommandRegistrar) constructor.newInstance();
             String commandName = command.getName();
             String commandDescription = command.getDescription();
-            SlashCommandData slashCommand = Commands.slash(commandName.toLowerCase(), commandDescription);
+            SlashCommandData slashCommand =
+                    Commands.slash(
+                            commandName.toLowerCase(),
+                            commandDescription);
             command.setOptions(slashCommand);
             updateCommands = jda.updateCommands().addCommands(
                     slashCommand);

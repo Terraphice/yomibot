@@ -10,7 +10,8 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class ConfigHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigHandler.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(ConfigHandler.class);
     public static Map<String, Object> loadConfig() {
         Map<String, Object> config = null;
 
@@ -56,23 +57,38 @@ public class ConfigHandler {
         }
         return yaml.load(inputStream);
     }
-    private static void checkForUnconfiguredValues(final Map<String, Object> config, final Map<String, Object> exampleConfig) {
-        for (final Map.Entry<String, Object> configIteration : config.entrySet()) {
-            if (exampleConfig.get(configIteration.getKey()) == null && LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Key found in config not present in example config: " + configIteration.getKey());
+    private static void checkForUnconfiguredValues(
+            final Map<String, Object> config,
+            final Map<String, Object> exampleConfig
+    ) {
+        for (final Map.Entry<String, Object> configIteration
+                : config.entrySet()) {
+            if (exampleConfig.get(configIteration.getKey()) == null &&
+                    LOGGER.isWarnEnabled()) {
+                LOGGER.warn(
+                        "Key found in config not present in example config: " +
+                                configIteration.getKey());
             }
             final Object configValue = configIteration.getValue();
-            final Object exampleValue = exampleConfig.get(configIteration.getKey());
+            final Object exampleValue =
+                    exampleConfig.get(configIteration.getKey());
             if (configValue == exampleValue && LOGGER.isErrorEnabled()) {
-                LOGGER.error("Config value unchanged, please configure key \"" + configIteration.getKey() + "\"");
+                LOGGER.error("Config value unchanged, please configure key \""
+                        + configIteration.getKey() + "\"");
                 System.exit(1);
             }
         }
     }
-    private static void checkForMissingKeys(final Map<String, Object> config, final Map<String, Object> exampleConfig) {
-        for (final Map.Entry<String, Object> exampleConfigI : exampleConfig.entrySet()) {
-            if (config.get(exampleConfigI.getKey()) == null && LOGGER.isErrorEnabled()) {
-                LOGGER.error("Key found in example config not present in config: " + exampleConfigI.getKey() +
+    private static void checkForMissingKeys(
+            final Map<String, Object> config,
+            final Map<String, Object> exampleConfig) {
+        for (final Map.Entry<String, Object> exampleConfigI :
+                exampleConfig.entrySet()) {
+            if (config.get(exampleConfigI.getKey()) == null &&
+                    LOGGER.isErrorEnabled()) {
+                LOGGER.error(
+                        "Key found in example config not present in config: " +
+                                exampleConfigI.getKey() +
                         "\nPlease copy all missing values and set them.");
                 System.exit(1);
             }

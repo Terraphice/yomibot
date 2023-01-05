@@ -24,12 +24,15 @@ public class Say implements SlashCommandRegistrar {
             //noinspection DataFlowIssue
             event.reply(event.getOption("message").getAsString()).queue();
         } catch (NullPointerException e) {
-            event.reply("Invalid syntax, please provide a message.").setEphemeral(true).queue();
+            event.reply("Invalid syntax, please provide a message.")
+                    .setEphemeral(true).queue();
         }
     }
 
     @Override
     public void setOptions(SlashCommandData command) {
-        command.addOption(OptionType.STRING, "message", "What you wish for the bot to respond with");
+        command.addOption(OptionType.STRING,
+                "message",
+                "What you wish for the bot to respond with");
     }
 }

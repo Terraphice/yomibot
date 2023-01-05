@@ -14,7 +14,8 @@ public class EventRegistrar extends ListenerAdapter {
     // yes, I know there's no constructor,
     // but PMD can deal with it; It's unneeded
     final List<Class<?>> commandList = loadCommands();
-    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+    public void onSlashCommandInteraction(
+            @NotNull SlashCommandInteractionEvent event) {
 
         for (Class<?> clazz : commandList) {
                 // Get the constructor for the class
@@ -32,7 +33,8 @@ public class EventRegistrar extends ListenerAdapter {
                          InvocationTargetException e) {
                     throw new RuntimeException(e);
                 }
-                if (command.getName().equalsIgnoreCase(event.getInteraction().getName())) {
+                if (command.getName().equalsIgnoreCase(
+                        event.getInteraction().getName())) {
                     command.handle(event);
                     break;
             }
