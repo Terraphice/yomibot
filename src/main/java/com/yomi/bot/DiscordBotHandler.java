@@ -3,6 +3,7 @@ package com.yomi.bot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
@@ -71,10 +72,10 @@ public class DiscordBotHandler {
             SlashCommandRegistrar command = (SlashCommandRegistrar) constructor.newInstance();
             String commandName = command.getName();
             String commandDescription = command.getDescription();
+            SlashCommandData slashCommand = Commands.slash(commandName.toLowerCase(), commandDescription);
+            command.setOptions(slashCommand);
             updateCommands = jda.updateCommands().addCommands(
-                    Commands.slash(commandName.toLowerCase(),
-                            commandDescription)
-            );
+                    slashCommand);
         }
         assert updateCommands != null;
         updateCommands.queue();

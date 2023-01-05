@@ -2,7 +2,9 @@ package com.yomi.bot.commands;
 
 import com.yomi.bot.SlashCommandRegistrar;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
+@SuppressWarnings("unused")
 public class Ping implements SlashCommandRegistrar {
 
     @Override
@@ -20,4 +22,6 @@ public class Ping implements SlashCommandRegistrar {
         event.reply("Pong!").queue();
     }
 
+    @Override
+    public void setOptions(SlashCommandData command) {}
 }
