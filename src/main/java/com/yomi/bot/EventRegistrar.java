@@ -1,18 +1,42 @@
 package com.yomi.bot;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import static com.yomi.bot.DiscordBotHandler.loadCommands;
 
 public class EventRegistrar extends ListenerAdapter {
     // yes, I know there's no constructor,
     // but PMD can deal with it; It's unneeded
-    public static final Logger LOGGER = LoggerFactory.getLogger(EventRegistrar.class);
-    public void onMessageReceived(final @NotNull MessageReceivedEvent event) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Message received: " + event.getMessage().getContentDisplay());
+    final List<Class<?>> commandList = loadCommands();
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+        System.out.println(event.getInteraction().getName());
+
+        for (Class<?> clazz : commandList) {
+                // Get the constructor for the class
+            Constructor<?> constructor;
+            try {
+                constructor = clazz.getConstructor();
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+            // Create a new instance of the class
+                SlashCommandRegistrar command;
+                try {
+                    command = (SlashCommandRegistrar) constructor.newInstance();
+                } catch (InstantiationException | IllegalAccessException |
+                         InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+                if (command.getName().equalsIgnoreCase(event.getInteraction().getName())) {
+                    command.handle(event);
+                    break;
+            }
         }
     }
 }
