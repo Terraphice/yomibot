@@ -1,7 +1,7 @@
 package com.yomi.bot.commands;
 
 import com.yomi.bot.SlashCommandRegistrar;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class Ping implements SlashCommandRegistrar {
 
@@ -16,8 +16,8 @@ public class Ping implements SlashCommandRegistrar {
     }
 
     @Override
-    public void handle(Message message) {
-        message.getChannel().sendMessage("Hello, world!").queue();
+    public void handle(SlashCommandInteractionEvent event) {
+        event.reply("Pong!").queue();
     }
 
 }
